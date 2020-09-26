@@ -1,0 +1,9 @@
+type History {
+  title: String!
+  url: String!,
+  read: Boolean
+}
+
+type Query {
+  allHistories: [History!]!
+}
