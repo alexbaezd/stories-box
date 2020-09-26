@@ -8,9 +8,19 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import styled from "styled-components"
 
 import Header from "./header"
 import "./layout.css"
+
+const Footer = styled.footer`
+  margin-top: 2rem;
+  text-align: center;
+  color: #e6496b;
+  & a {
+    color:#e6496b;
+  }
+`
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -30,17 +40,16 @@ const Layout = ({ children }) => {
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
+          padding: `7rem 1.0875rem 1.45rem`,
         }}
       >
         <main>{children}</main>
-        <footer style={{
-          marginTop: `2rem`
-        }}>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
+        <Footer>
+          © {new Date().getFullYear()}{" "}
+          <a href="https://alexbaez.dev/" target="_blank" rel="noreferrer">
+            Alex Báez
+          </a>
+        </Footer>
       </div>
     </>
   )

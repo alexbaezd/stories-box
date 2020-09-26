@@ -1,22 +1,70 @@
-import React from "react"
-import { Link } from "gatsby"
+import axios from "axios";
+import React, {useState,useEffect} from "react"
+import styled from "styled-components"
+import Form from "../components/formAddHistory";
+
+
+import History from "../components/history";
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+
+const HistoriesGroup = styled.div`
+  display: grid;
+  grid-template-columns: repeat(1,1fr);
+  gap:0.5rem;
+`
+
+
+const IndexPage = () =>{
+
+    const [status, setStatus] = useState("loading")
+    const [histories, setHistories] = useState(null)
+
+    useEffect(() => {
+      let canceled = false
+      if (status !== "loading") return
+
+      axios("/api/get-histories").then(result => {
+        if (canceled === true) return
+
+        if (result.status !== 200) {
+          console.error("Error Loading", "\n", result)
+          return
+        }
+
+        const sortData = result.data.histories.sort((a,b)=>(a.read === b.read)? 0 : a.read? 1 : -1)
+        setHistories(sortData)
+        setStatus("loaded")
+      })
+
+      return () => {
+        canceled = true
+      }
+    }, [status])
+
+    const reloadData = () => setStatus("loading")
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <Form reloadData={reloadData} />
+      {histories ? (
+        <HistoriesGroup>
+          {histories.map(history => (
+            <History
+              key={history._id}
+              history={history}
+              reloadData={reloadData}
+            />
+          ))}
+        </HistoriesGroup>
+      ) : (
+        /*TODO: add component with animation*/ 
+        <p>Loading ......</p>
+      )}
+    </Layout>
+  )
+}
 
 export default IndexPage
