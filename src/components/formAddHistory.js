@@ -53,7 +53,7 @@ const Form = ({ reloadData }) => {
     if (title === "" && url === "") return
 
     //TODO: call create function
-    await axios.post(`${process.env.URL_FUNCTIONS}/create-history`, {
+    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {
       title,
       url,
     })

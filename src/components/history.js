@@ -87,7 +87,7 @@ const History = ({ history, reloadData }) => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.URL_API_OPG}/?ogUrl=${history.url}`)
+      .get(`${process.env.GATSBY_URL_API_OPG}/?ogUrl=${history.url}`)
       .then(response => {
         setOpenGraph(response.data)
       })
@@ -99,14 +99,14 @@ const History = ({ history, reloadData }) => {
     setDeleteHistory(true)
     const id = history._id
     await axios
-      .post(`${process.env.URL_FUNCTIONS}/delete-history`, { id })
+      .post(`${process.env.GATSBY_URL_FUNCTIONS}/delete-history`, { id })
       .then(reloadData)
   }
   //TODO: complete Read
   const handleRead = async () => {
     const {_id,title,url,read} = history
     await axios
-      .post(`${process.env.URL_FUNCTIONS}/isread`, {
+      .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
         id: _id,
         title,
         url,
@@ -131,6 +131,7 @@ const History = ({ history, reloadData }) => {
       </div>
       <div>
         <HistoryTitle>{history.title}</HistoryTitle>
+        <p>{process.env.GATSBY_URL_API_OPG}</p>
         {openGraph && (
           <HistoryDescription>{`${String(openGraph.ogDescription).substring(
             0,
