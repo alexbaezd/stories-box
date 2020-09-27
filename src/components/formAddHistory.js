@@ -53,7 +53,10 @@ const Form = ({ reloadData }) => {
     if (title === "" && url === "") return
 
     //TODO: call create function
-    await axios.post("/api/create-history",{title,url})
+    await axios.post(`${process.env.URL_FUNCTIONS}/api/create-history`, {
+      title,
+      url,
+    })
     setTitle("")
     setURL("")
 

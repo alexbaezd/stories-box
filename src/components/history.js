@@ -87,7 +87,7 @@ const History = ({ history, reloadData }) => {
 
   useEffect(() => {
     axios
-      .get(`https://open-graph-node-api.herokuapp.com/?ogUrl=${history.url}`)
+      .get(`${process.env.URL_API_OPG}/?ogUrl=${history.url}`)
       .then(response => {
         setOpenGraph(response.data)
       })
@@ -98,17 +98,21 @@ const History = ({ history, reloadData }) => {
   const handleDelete = async () => {
     setDeleteHistory(true)
     const id = history._id
-    await axios.post("/api/delete-history", { id }).then(reloadData)
+    await axios
+      .post(`${process.env.URL_FUNCTIONS}/api/delete-history`, { id })
+      .then(reloadData)
   }
   //TODO: complete Read
   const handleRead = async () => {
     const {_id,title,url,read} = history
-    await axios.post("/api/isread",{
-      id:_id,
-      title,
-      url,
-      read:!read
-    }).then(reloadData)
+    await axios
+      .post(`${process.env.URL_FUNCTIONS}/api/isread`, {
+        id: _id,
+        title,
+        url,
+        read: !read,
+      })
+      .then(reloadData)
   }
 
   return (

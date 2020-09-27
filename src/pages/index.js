@@ -25,8 +25,7 @@ const IndexPage = () =>{
     useEffect(() => {
       let canceled = false
       if (status !== "loading") return
-
-      axios("/api/get-histories").then(result => {
+      axios(`${process.env.URL_FUNCTIONS}/api/get-histories`).then(result => {
         if (canceled === true) return
 
         if (result.status !== 200) {
@@ -34,7 +33,9 @@ const IndexPage = () =>{
           return
         }
 
-        const sortData = result.data.histories.sort((a,b)=>(a.read === b.read)? 0 : a.read? 1 : -1)
+        const sortData = result.data.histories.sort((a, b) =>
+          a.read === b.read ? 0 : a.read ? 1 : -1
+        )
         setHistories(sortData)
         setStatus("loaded")
       })
