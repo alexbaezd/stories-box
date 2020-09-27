@@ -25,7 +25,7 @@ const IndexPage = () =>{
     useEffect(() => {
       let canceled = false
       if (status !== "loading") return
-      axios(`${process.env.URL_FUNCTIONS}/api/get-histories`).then(result => {
+      axios(`${process.env.URL_FUNCTIONS}/get-histories`).then(result => {
         if (canceled === true) return
 
         if (result.status !== 200) {

@@ -99,14 +99,14 @@ const History = ({ history, reloadData }) => {
     setDeleteHistory(true)
     const id = history._id
     await axios
-      .post(`${process.env.URL_FUNCTIONS}/api/delete-history`, { id })
+      .post(`${process.env.URL_FUNCTIONS}/delete-history`, { id })
       .then(reloadData)
   }
   //TODO: complete Read
   const handleRead = async () => {
     const {_id,title,url,read} = history
     await axios
-      .post(`${process.env.URL_FUNCTIONS}/api/isread`, {
+      .post(`${process.env.URL_FUNCTIONS}/isread`, {
         id: _id,
         title,
         url,
