@@ -1,6 +1,7 @@
-import React, {useState,useEffect} from 'react'
+import React from 'react'
 import styled from "styled-components"
-import axios from "axios"
+
+import { MyLoaderImage, MyLoaderText } from "./contendLoader"
 
 const HistoryContainer = styled.div`
   display: grid;
@@ -10,7 +11,7 @@ const HistoryContainer = styled.div`
   padding: 1rem;
   border-radius: 2px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-  height: 220px;
+  height: 245px;
   background: white;
   @media (max-width: 640px) {
     height: auto;
@@ -21,17 +22,23 @@ const HistoryContainer = styled.div`
 const HistoryTitle = styled.h3`
   color: #7f8082;
   font-size: 2vmin;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0rem;
   @media (max-width: 640px) {
     font-size: 4vmin;
   }
 `
-const HistoryButtonGroup = styled.div`
-display:flex;
-justify-content:flex-end;
-padding:0 0.5rem;
-gap:0.5rem;
 
+const HistoryNote = styled.small`
+  color: #e6496b;
+  margin: 0;
+  font-style: italic;
+  margin-bottom:1.5rem;
+`
+const HistoryButtonGroup = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 0.5rem;
+  gap: 0.5rem;
 `
 
 const HistoryButton = styled.a`
@@ -56,16 +63,17 @@ const HistoryDescription = styled.p`
   color: #8d93ab;
   font-size: 0.8rem;
   font-weight: 200;
+  margin-top:0.5rem;
   margin-bottom: 1rem;
-  padding-right:3rem;
+  padding-right: 3rem;
   @media (max-width: 640px) {
-    padding-right:0;
+    padding-right: 0;
   }
 `
 const HistoryImage = styled.img`
-  width:420px;
+  width: 420px;
   height: 190px;
-  border-radius:3px;
+  border-radius: 3px;
 `
 
 const HistoryReadGroup = styled.div`
@@ -80,96 +88,67 @@ const HistoryReadGroup = styled.div`
 `
 
 
-const History = ({ history, reloadData }) => {
-  const [openGraph, setOpenGraph] = useState(null);
-  const [deleteHistory, setDeleteHistory] = useState(false)
-  const [createHistory, setCreateHistory] = useState(false)
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.GATSBY_URL_API_OPG}/?ogUrl=${history.url}`)
-      .then(response => {
-        setOpenGraph(response.data)
-      })
-      setCreateHistory(true)
-  }, [history.url])
-
-  //TODO: delete
-  const handleDelete = async () => {
-    setDeleteHistory(true)
-    const id = history._id
-    await axios
-      .post(`${process.env.GATSBY_URL_FUNCTIONS}/delete-history`, { id })
-      .then(reloadData)
-  }
-  //TODO: complete Read
-  const handleRead = async () => {
-    const {_id,title,url,read} = history
-    await axios
-      .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
-        id: _id,
-        title,
-        url,
-        read: !read,
-      })
-      .then(reloadData)
-  }
-
-  return (
-    <HistoryContainer
-      className={`${history.read && "activeRead"}
-        ${deleteHistory && "deleteHistory"}
-        ${createHistory && "createHistory"}`}
-    >
-      <div>
-        {openGraph && (
-          <HistoryImage
-            src={openGraph.ogImage && openGraph.ogImage.url}
-            alt={history.title}
-          />
-        )}
-      </div>
-      <div>
-        <HistoryTitle>{history.title}</HistoryTitle>
-        <p>{process.env.GATSBY_URL_API_OPG}</p>
-        {openGraph && (
-          <HistoryDescription>{`${String(openGraph.ogDescription).substring(
-            0,
-            140
-          )}...`}</HistoryDescription>
-        )}
-        <HistoryButtonGroup>
-          <HistoryButton href={history.url} target="_blank" rel="noreferrer">
-            <span role="img" aria-label="link">
-               🔗
-            </span>
-          </HistoryButton>
-          <HistoryReadGroup>
-            <input
-              name={`h-${history._id}`}
-              id={`h-${history._id}`}
-              type="checkbox"
-              checked={history.read}
-              onChange={handleRead}
+export const History = ({
+  loadHistory,
+  HistoryClass,
+  openGraph,
+  history,
+  handleDelete,
+  handleRead,
+}) => (
+  <HistoryContainer className={HistoryClass}>
+    {loadHistory ? (
+      <>
+        <MyLoaderImage />
+        <MyLoaderText />
+      </>
+    ) : (
+      <>
+        <div>
+          {openGraph && (
+            <HistoryImage
+              src={openGraph.ogImage && openGraph.ogImage.url}
+              alt={openGraph.ogTitle}
             />
-            <label htmlFor={`h-${history._id}`}>
-              <span role="img" aria-label="read">
-                📖
+          )}
+        </div>
+        <div>
+          <HistoryTitle>{openGraph.ogTitle}</HistoryTitle>
+          <HistoryNote><span style={{fontSize:"1.2rem"}} role="img" aria-label="remainder">🛋</span>{history.title}</HistoryNote>
+          {openGraph && (
+            <HistoryDescription>{`${String(openGraph.ogDescription).substring(
+              0,
+              140
+            )}...`}</HistoryDescription>
+          )}
+          <HistoryButtonGroup>
+            <HistoryButton href={history.url} target="_blank" rel="noreferrer">
+              <span role="img" aria-label="link">
+                 🔗
               </span>
-            </label>
-          </HistoryReadGroup>
-          {/*  <HistoryMarkRead onClick={handleRead}>
-            Marcar como leido
-          </HistoryMarkRead> */}
-          <HistoryDeleteButton onClick={handleDelete}>
-            <span role="img" aria-label="trash">
-              🗑
-            </span>
-          </HistoryDeleteButton>
-        </HistoryButtonGroup>
-      </div>
-    </HistoryContainer>
-  )
-}
-
-export default History
+            </HistoryButton>
+            <HistoryReadGroup>
+              <input
+                name={`h-${history._id}`}
+                id={`h-${history._id}`}
+                type="checkbox"
+                checked={history.read}
+                onChange={handleRead}
+              />
+              <label htmlFor={`h-${history._id}`}>
+                <span role="img" aria-label="read">
+                  📖
+                </span>
+              </label>
+            </HistoryReadGroup>
+            <HistoryDeleteButton onClick={handleDelete}>
+              <span role="img" aria-label="trash">
+                🗑
+              </span>
+            </HistoryDeleteButton>
+          </HistoryButtonGroup>
+        </div>
+      </>
+    )}
+  </HistoryContainer>
+)

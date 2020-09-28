@@ -40,7 +40,6 @@ const FormHistorySubmit = styled.button`
   @media (max-width: 640px) {
     margin-top:0.5rem;
   }
-
 `
 
 const Form = ({ reloadData }) => {
@@ -52,22 +51,19 @@ const Form = ({ reloadData }) => {
 
     if (title === "" && url === "") return
 
-    //TODO: call create function
     await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {
       title,
       url,
     })
     setTitle("")
     setURL("")
-
-    //TODO: reload data
     reloadData();
   }
 
   return (
     <FormHistory onSubmit={handleSubmit}>
       <FormHistoryLabel htmlFor="title">
-        Title
+        Note
         <FormHistoryInput
           autoComplete="off"
           required
