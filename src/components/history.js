@@ -91,7 +91,6 @@ const HistoryReadGroup = styled.div`
 export const History = ({
   loadHistory,
   HistoryClass,
-  openGraph,
   history,
   handleDelete,
   handleRead,
@@ -105,22 +104,25 @@ export const History = ({
     ) : (
       <>
         <div>
-          {openGraph && (
-            <HistoryImage
-              src={openGraph.ogImage && openGraph.ogImage.url}
-              alt={openGraph.ogTitle}
-            />
-          )}
+          <HistoryImage src={history.image} alt={history.title} />
         </div>
         <div>
-          <HistoryTitle>{openGraph.ogTitle}</HistoryTitle>
-          <HistoryNote><span style={{fontSize:"1.2rem"}} role="img" aria-label="remainder">🛋</span>{history.title}</HistoryNote>
-          {openGraph && (
-            <HistoryDescription>{`${String(openGraph.ogDescription).substring(
+          <HistoryTitle>{history.title}</HistoryTitle>
+          <HistoryNote>
+            <span
+              style={{ fontSize: "1.2rem" }}
+              role="img"
+              aria-label="remainder"
+            >
+              🛋
+            </span>
+            {history.note}
+          </HistoryNote>
+            <HistoryDescription>{`${String(history.description).substring(
               0,
               140
             )}...`}</HistoryDescription>
-          )}
+       
           <HistoryButtonGroup>
             <HistoryButton href={history.url} target="_blank" rel="noreferrer">
               <span role="img" aria-label="link">

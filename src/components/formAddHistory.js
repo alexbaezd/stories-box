@@ -43,34 +43,34 @@ const FormHistorySubmit = styled.button`
 `
 
 const Form = ({ reloadData }) => {
-  const [title, setTitle] = useState("")
+  const [note, setNote] = useState("")
   const [url, setURL] = useState("")
 
   const handleSubmit = async event => {
     event.preventDefault()
 
-    if (title === "" && url === "") return
+    if (note === "" && url === "") return
 
     await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {
-      title,
+      note,
       url,
     })
-    setTitle("")
+    setNote("")
     setURL("")
     reloadData();
   }
 
   return (
     <FormHistory onSubmit={handleSubmit}>
-      <FormHistoryLabel htmlFor="title">
+      <FormHistoryLabel htmlFor="note">
         Note
         <FormHistoryInput
           autoComplete="off"
           required
-          value={title}
-          name="title"
+          value={note}
+          name="note"
           type="text"
-          onChange={e => setTitle(e.target.value)}
+          onChange={e => setNote(e.target.value)}
         />
       </FormHistoryLabel>
       <FormHistoryLabel htmlFor="url">

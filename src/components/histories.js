@@ -1,12 +1,22 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from "axios"
 
 import { History } from "./history"
-import { useOpenGraph } from '../hooks/useOpenGraph'
+
 
 const Histories = ({ history, reloadData }) => {
   const [deleteHistory, setDeleteHistory] = useState(false)
-  const [openGraph,loadHistory] = useOpenGraph(history.url)
+  const [loadHistory, setLoadHistory] = useState(true)
+
+  useEffect(() => {
+    let time = setTimeout(() => {
+      setLoadHistory(false)
+    }, 1500);
+    return () => {
+      clearTimeout(time)
+    }
+  }, [])
+
 
   const handleDelete = async () => {
     setDeleteHistory(true)
@@ -17,14 +27,18 @@ const Histories = ({ history, reloadData }) => {
       .then(reloadData)
   }
 
+  // FIXME: update to new Schema
   const handleRead = async () => {
-    const {_id,title,url,read} = history
+    const {_id,title,url,read,image,description,note} = history
     await axios
       .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
         id: _id,
         title,
         url,
         read: !read,
+        image,
+        description,
+        note
       })
       .then(reloadData)
   }
@@ -32,14 +46,13 @@ const Histories = ({ history, reloadData }) => {
   let HistoryClass = [
     history.read ? "activeRead" : "",
     deleteHistory ? "deleteHistory" : "",
-    !loadHistory ? "createHistory" : "",
+   loadHistory ?"createHistory" :"",
   ].join(" ")
 
   return (
     <History
       HistoryClass={HistoryClass}
-      loadHistory={loadHistory}
-      openGraph={openGraph}
+      loadHistory={loadHistory} //FIXME:
       history={history}
       handleRead={handleRead}
       handleDelete={handleDelete}
