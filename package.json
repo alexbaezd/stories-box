@@ -16,6 +16,7 @@
     "gatsby-plugin-styled-components": "^3.3.11",
     "gatsby-source-filesystem": "^2.3.30",
     "gatsby-transformer-sharp": "^2.5.15",
+    "open-graph-scraper": "^4.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-content-loader": "^5.1.2",

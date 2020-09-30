@@ -1,7 +1,12 @@
 type History {
-  title: String!
+  note: String!
   url: String!,
-  read: Boolean
+  read: Boolean,
+  title:String!,
+  description:String!,
+  image:String!,
+  siteName: String
+  
 }
 
 type Query {

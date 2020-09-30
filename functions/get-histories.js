@@ -8,6 +8,9 @@ const GET_HISTORIES = `
         title
         read
         url
+        note
+        image
+        description
       }
     }
   }
