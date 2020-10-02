@@ -15,12 +15,7 @@ mutation($title:String!,$url:String!,$note:String!,$description:String!,$image:S
   }
 }
 `
-
-exports.handler = async (event) => {
-  
-  const {note,url} = JSON.parse(event.body)
-
-  const getMeta = async url => {
+const getMeta = async url => {
     const options = {
       url: url,
       headers: {
@@ -30,17 +25,26 @@ exports.handler = async (event) => {
     }
     let resp = await ogs(options)
     return resp.result
-  }
+}
 
+exports.handler = async (event) => {
+  const {note,url} = JSON.parse(event.body)
   const openGraphData = await getMeta(url);
 
   const variables = {
     note,
     url,
     title: openGraphData.ogTitle,
-    description: openGraphData.ogDescription,
-    image: openGraphData.ogImage.url,
-    siteName: openGraphData.ogSiteName,
+    description:
+      openGraphData.ogDescription === undefined
+        ? ""
+        : openGraphData.ogDescription,
+    image:
+      openGraphData.ogImage === undefined
+        ? "https://picsum.photos/seed/picsum/420/190*/"
+        : openGraphData.ogImage.url,
+    siteName:
+      openGraphData.ogSiteName === undefined ? "" : openGraphData.ogSiteName,
   }
 
   const { data, errors } = await Query(CREATE_HISTORY,variables)
