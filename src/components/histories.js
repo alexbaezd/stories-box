@@ -4,19 +4,18 @@ import axios from "axios"
 import { History } from "./history"
 
 
-const Histories = ({ history, reloadData }) => {
+const Histories = ({ history, reloadData, provided ,innerRef}) => {
   const [deleteHistory, setDeleteHistory] = useState(false)
   const [loadHistory, setLoadHistory] = useState(true)
 
   useEffect(() => {
     let time = setTimeout(() => {
       setLoadHistory(false)
-    }, 1500);
+    }, 1500)
     return () => {
       clearTimeout(time)
     }
   }, [])
-
 
   const handleDelete = async () => {
     setDeleteHistory(true)
@@ -29,7 +28,7 @@ const Histories = ({ history, reloadData }) => {
 
   // FIXME: update to new Schema
   const handleRead = async () => {
-    const {_id,title,url,read,image,description,note} = history
+    const { _id, title, url, read, image, description, note } = history
     await axios
       .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
         id: _id,
@@ -38,7 +37,7 @@ const Histories = ({ history, reloadData }) => {
         read: !read,
         image,
         description,
-        note
+        note,
       })
       .then(reloadData)
   }
@@ -46,11 +45,13 @@ const Histories = ({ history, reloadData }) => {
   let HistoryClass = [
     history.read ? "activeRead" : "",
     deleteHistory ? "deleteHistory" : "",
-   loadHistory ?"createHistory" :"",
+    loadHistory ? "createHistory" : "",
   ].join(" ")
 
   return (
     <History
+      innerRef={innerRef}
+      provided={provided}
       HistoryClass={HistoryClass}
       loadHistory={loadHistory} //FIXME:
       history={history}

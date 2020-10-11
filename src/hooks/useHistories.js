@@ -4,11 +4,11 @@ import axios from "axios"
 export const useHistories = () =>{
     const [status, setStatus] = useState("loading")
     const [histories, setHistories] = useState(null)
-
+    
     useEffect(() => {
       let canceled = false
       if (status !== "loading") return
-      
+
       axios(`${process.env.GATSBY_URL_FUNCTIONS}/get-histories`).then(
         result => {
           if (canceled === true) return
@@ -29,7 +29,7 @@ export const useHistories = () =>{
       return () => {
         canceled = true
       }
-    }, [status])
+    }, [status, histories])
 
-    return [histories,setStatus]
+    return [histories,setHistories,setStatus]
 }
