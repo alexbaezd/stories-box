@@ -33,12 +33,12 @@ const Layout = ({ children }) => {
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: `7rem 1.0875rem 1.45rem`,
+          padding: `4.2rem 1.0875rem 1.45rem`,
         }}
       >
         <main>{children}</main>
         <Footer>
-          © {new Date().getFullYear()}
+          © {new Date().getFullYear()}{" "}
           <a href="https://alexbaez.dev/" target="_blank" rel="noreferrer">
             Alex Báez
           </a>
