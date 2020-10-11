@@ -18,8 +18,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Histories Box`,
+        short_name: `Histories`,
         start_url: `/`,
         background_color: `#34495E`,
         theme_color: `#34495E`,
@@ -30,6 +30,11 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`
+    {
+      resolve: `gatsby-plugin-offline`,
+      options: {
+        precachePages: [`/`],
+      },
+    },
   ],
 }
