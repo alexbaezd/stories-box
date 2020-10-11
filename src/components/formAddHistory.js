@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from "axios"
 import styled from "styled-components"
-
+import { useForm } from '../hooks/useForm'
 
 const FormHistory = styled.form`
   padding: 0.7rem 1rem;
@@ -10,10 +10,9 @@ const FormHistory = styled.form`
   justify-content: center;
   background: white;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-
+  margin-bottom:1rem;
   @media (max-width: 640px){
     flex-direction:column;
-    align-items:flex-start;
   }
 `
 const FormHistoryLabel = styled.label`
@@ -43,20 +42,16 @@ const FormHistorySubmit = styled.button`
 `
 
 const Form = ({ reloadData }) => {
-  const [note, setNote] = useState("")
-  const [url, setURL] = useState("")
+
+  const [{ note, url }, handleInputChange, reset] = useForm({ note: "", url: "" })
 
   const handleSubmit = async event => {
-    event.preventDefault()
-
+    event.preventDefault();
+  
     if (note === "" && url === "") return
-
-    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {
-      note,
-      url,
-    })
-    setNote("")
-    setURL("")
+  
+    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {note,url,});
+    reset();
     reloadData();
   }
 
@@ -70,7 +65,7 @@ const Form = ({ reloadData }) => {
           value={note}
           name="note"
           type="text"
-          onChange={e => setNote(e.target.value)}
+          onChange={handleInputChange}
         />
       </FormHistoryLabel>
       <FormHistoryLabel htmlFor="url">
@@ -81,7 +76,7 @@ const Form = ({ reloadData }) => {
           value={url}
           name="url"
           type="url"
-          onChange={e => setURL(e.target.value)}
+          onChange={handleInputChange}
         />
       </FormHistoryLabel>
       <FormHistorySubmit>Save</FormHistorySubmit>
