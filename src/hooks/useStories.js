@@ -1,15 +1,15 @@
 import {useState,useEffect} from "react"
 import axios from "axios"
 
-export const useHistories = () =>{
+export const useStories = () =>{
     const [status, setStatus] = useState("loading")
-    const [histories, setHistories] = useState(null)
+    const [stories, setStories] = useState(null)
     
     useEffect(() => {
       let canceled = false
       if (status !== "loading") return
 
-      axios(`${process.env.GATSBY_URL_FUNCTIONS}/get-histories`).then(
+      axios(`${process.env.GATSBY_URL_FUNCTIONS}/get-stories`).then(
         result => {
           if (canceled === true) return
 
@@ -18,10 +18,10 @@ export const useHistories = () =>{
             return
           }
 
-          const sortData = result.data.histories.sort((a, b) =>
+          const sortData = result.data.stories.sort((a, b) =>
             a.read === b.read ? 0 : a.read ? 1 : -1
           )
-          setHistories(sortData)
+          setStories(sortData)
           setStatus("loaded")
         }
       )
@@ -29,7 +29,7 @@ export const useHistories = () =>{
       return () => {
         canceled = true
       }
-    }, [status, histories])
+    }, [status, stories])
 
-    return [histories,setHistories,setStatus]
+    return [stories,setStories,setStatus]
 }

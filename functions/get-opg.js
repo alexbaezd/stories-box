@@ -1,9 +1,9 @@
 const Query = require("./utils/query")
 const ogs = require("open-graph-scraper")
 
-const GET_HISTORIES = `
+const GET_STORIES = `
   query {
-    allHistories {
+    allStories {
       data {
         _id
         title
@@ -15,7 +15,7 @@ const GET_HISTORIES = `
 `
 
 exports.handler = async () => {
-  const { data, errors } = await Query(GET_HISTORIES)
+  const { data, errors } = await Query(GET_STORIES)
 
   if (errors) {
     return {
@@ -36,13 +36,13 @@ exports.handler = async () => {
     return resp.result
   }
 
-  const tmp = data.allHistories.data
+  const tmp = data.allStories.data
 
   let dataTmp = await Promise.all(
-    tmp.map(async (history) => {
+    tmp.map(async (story) => {
       return {
-        ...history,
-        metadata: await getMeta(history.url),
+        ...story,
+        metadata: await getMeta(story.url),
       }
     })
   ) 
@@ -56,6 +56,6 @@ exports.handler = async () => {
   console.log("D",d)
   return {
     statusCode: 200,
-    body: JSON.stringify({ histories: data.allHistories.data }),
+    body: JSON.stringify({ stories: data.allStories.data }),
   }
 }

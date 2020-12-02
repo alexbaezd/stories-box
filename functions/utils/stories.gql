@@ -1,4 +1,4 @@
-type History {
+type Story {
   note: String!
   url: String!,
   read: Boolean,
@@ -6,9 +6,8 @@ type History {
   description:String!,
   image:String!,
   siteName: String
-  
 }
 
 type Query {
-  allHistories: [History!]!
+  allStories: [Story!]!
 }

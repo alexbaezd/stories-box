@@ -3,7 +3,7 @@ import axios from "axios"
 import styled from "styled-components"
 import { useForm } from '../hooks/useForm'
 
-const FormHistory = styled.form`
+const FormStory = styled.form`
   padding: 0.7rem 1rem;
   border-radius: 3px;
   display: flex;
@@ -15,21 +15,21 @@ const FormHistory = styled.form`
     flex-direction:column;
   }
 `
-const FormHistoryLabel = styled.label`
+const FormStoryLabel = styled.label`
   color: #7f8082;
   margin-right: 1.5rem;
   @media (max-width: 640px) {
   width: 100%;
   }
 `
-const FormHistoryInput = styled.input`
+const FormStoryInput = styled.input`
   margin-left: 0.5rem;
   @media (max-width: 640px) {
     margin-bottom:1rem;
     width: 80%;
   }
 `
-const FormHistorySubmit = styled.button`
+const FormStorySubmit = styled.button`
   color: #2d4059;
   border: 1px solid #6f90fc;
   background: transparent;
@@ -50,16 +50,16 @@ const Form = ({ reloadData }) => {
   
     if (note === "" && url === "") return
   
-    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-history`, {note,url,});
+    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-story`, {note,url,});
     reset();
     reloadData();
   }
 
   return (
-    <FormHistory onSubmit={handleSubmit}>
-      <FormHistoryLabel htmlFor="note">
+    <FormStory onSubmit={handleSubmit}>
+      <FormStoryLabel htmlFor="note">
         Note
-        <FormHistoryInput
+        <FormStoryInput
           autoComplete="off"
           required
           value={note}
@@ -67,10 +67,10 @@ const Form = ({ reloadData }) => {
           type="text"
           onChange={handleInputChange}
         />
-      </FormHistoryLabel>
-      <FormHistoryLabel htmlFor="url">
+      </FormStoryLabel>
+      <FormStoryLabel htmlFor="url">
         Link
-        <FormHistoryInput
+        <FormStoryInput
           autoComplete="off"
           required
           value={url}
@@ -78,9 +78,9 @@ const Form = ({ reloadData }) => {
           type="url"
           onChange={handleInputChange}
         />
-      </FormHistoryLabel>
-      <FormHistorySubmit>Save</FormHistorySubmit>
-    </FormHistory>
+      </FormStoryLabel>
+      <FormStorySubmit>Save</FormStorySubmit>
+    </FormStory>
   )
 }
 

@@ -601,11 +601,11 @@ pre tt:after {
     opacity: 0.4;
   }
 
-.createHistory{
+.createStory{
   animation: create 0.3s linear;
   animation-iteration-count: 1;
 }
-.deleteHistory{
+.deleteStory{
   animation: delete 0.3s linear;
   animation-iteration-count: 1;
   opacity: 0;

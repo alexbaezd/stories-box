@@ -1,8 +1,8 @@
 const Query = require("./utils/query")
 
-const DELETE_HISTORY = `
+const DELETE_STORY = `
 mutation($id:ID!){
-  deleteHistory(id:$id){
+  deleteStory(id:$id){
     _id
   }
 }
@@ -10,7 +10,7 @@ mutation($id:ID!){
 
 exports.handler = async event => {
   const { id } = JSON.parse(event.body)
-  const { data, errors } = await Query(DELETE_HISTORY, { id })
+  const { data, errors } = await Query(DELETE_STORY, { id })
 
   if (errors) {
     return {
@@ -18,9 +18,9 @@ exports.handler = async event => {
       body: JSON.stringify(errors),
     }
   }
- 
+
   return {
     statusCode: 200,
-    body: JSON.stringify({ deleteHistory: data.deleteHistory }),
+    body: JSON.stringify({ deleteStory: data.deleteStory }),
   }
 }

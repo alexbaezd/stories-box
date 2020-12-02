@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios"
 
-import { History } from "./history"
+import { Story } from "./story"
 
 
-const Histories = ({ history, reloadData, provided ,innerRef}) => {
-  const [deleteHistory, setDeleteHistory] = useState(false)
-  const [loadHistory, setLoadHistory] = useState(true)
+const Stories = ({ story, reloadData, provided ,innerRef}) => {
+  const [deleteStory, setDeleteStory] = useState(false)
+  const [loadStory, setLoadStory] = useState(true)
 
   useEffect(() => {
     let time = setTimeout(() => {
-      setLoadHistory(false)
+      setLoadStory(false)
     }, 1500)
     return () => {
       clearTimeout(time)
@@ -18,17 +18,17 @@ const Histories = ({ history, reloadData, provided ,innerRef}) => {
   }, [])
 
   const handleDelete = async () => {
-    setDeleteHistory(true)
+    setDeleteStory(true)
     await axios
-      .post(`${process.env.GATSBY_URL_FUNCTIONS}/delete-history`, {
-        id: history._id,
+      .post(`${process.env.GATSBY_URL_FUNCTIONS}/delete-story`, {
+        id: story._id,
       })
       .then(reloadData)
   }
 
   // FIXME: update to new Schema
   const handleRead = async () => {
-    const { _id, title, url, read, image, description, note } = history
+    const { _id, title, url, read, image, description, note } = story
     await axios
       .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
         id: _id,
@@ -42,23 +42,23 @@ const Histories = ({ history, reloadData, provided ,innerRef}) => {
       .then(reloadData)
   }
 
-  let HistoryClass = [
-    history.read ? "activeRead" : "",
-    deleteHistory ? "deleteHistory" : "",
-    loadHistory ? "createHistory" : "",
+  let StoryClass = [
+    story.read ? "activeRead" : "",
+    deleteStory ? "deleteStory" : "",
+    loadStory ? "createStory" : "",
   ].join(" ")
 
   return (
-    <History
+    <Story
       innerRef={innerRef}
       provided={provided}
-      HistoryClass={HistoryClass}
-      loadHistory={loadHistory} //FIXME:
-      history={history}
+      StoryClass={StoryClass}
+      loadStory={loadStory} //FIXME:
+      story={story}
       handleRead={handleRead}
       handleDelete={handleDelete}
     />
   )
 }
 
-export default Histories
+export default Stories

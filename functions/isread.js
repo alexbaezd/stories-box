@@ -1,8 +1,8 @@
 const Query = require("./utils/query")
 
-const TOGGLE_HISTORY = `
+const TOGGLE_STORY = `
 mutation($id:ID!,$title:String!,$url:String!,$read:Boolean!,$image:String!,$description:String!,$note:String!){
-  updateHistory(id:$id, data:{title:$title,url:$url,read:$read,image:$image,description:$description,note:$note}){
+  updateStory(id:$id, data:{title:$title,url:$url,read:$read,image:$image,description:$description,note:$note}){
     _id
     read
   }
@@ -11,7 +11,7 @@ mutation($id:ID!,$title:String!,$url:String!,$read:Boolean!,$image:String!,$desc
 
 exports.handler = async event => {
   const {id, title, url,read , image, description, note} = JSON.parse(event.body)
-  const { data, errors } = await Query(TOGGLE_HISTORY, {id, title, url,read , image, description,note})
+  const { data, errors } = await Query(TOGGLE_STORY, {id, title, url,read , image, description,note})
 
   if (errors) {
     return {
@@ -21,6 +21,6 @@ exports.handler = async event => {
   }
   return {
     statusCode: 200,
-    body: JSON.stringify({ updateHistory: data.updateHistory }),
+    body: JSON.stringify({ updateStory: data.updateStory }),
   }
 }
