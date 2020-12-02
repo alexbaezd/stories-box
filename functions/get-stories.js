@@ -1,8 +1,8 @@
 const Query = require("./utils/query")
 
-const GET_HISTORIES = `
+const GET_STORIES = `
   query {
-    allHistories {
+    allStories {
       data {
         _id
         title
@@ -18,7 +18,7 @@ const GET_HISTORIES = `
 
 exports.handler = async () =>{
 
-  const { data, errors } = await Query(GET_HISTORIES)
+  const { data, errors } = await Query(GET_STORIES)
 
   if (errors) {
     return {
@@ -28,7 +28,7 @@ exports.handler = async () =>{
   }
   return {
     statusCode: 200,
-    body: JSON.stringify({ histories: data.allHistories.data}),
+    body: JSON.stringify({ stories: data.allStories.data}),
   }
 
 }

@@ -2,9 +2,9 @@ const Query = require("./utils/query")
 const ogs = require("open-graph-scraper")
 
 
-const CREATE_HISTORY = `
+const CREATE_STORY = `
 mutation($title:String!,$url:String!,$note:String!,$description:String!,$image:String!,$siteName:String){
-  createHistory(data:{title:$title,url:$url,read:false,note:$note,description:$description,image:$image,siteName:$siteName}){
+  createStory(data:{title:$title,url:$url,read:false,note:$note,description:$description,image:$image,siteName:$siteName}){
     _id
     title
     url
@@ -47,7 +47,7 @@ exports.handler = async (event) => {
       openGraphData.ogSiteName === undefined ? "" : openGraphData.ogSiteName,
   }
 
-  const { data, errors } = await Query(CREATE_HISTORY,variables)
+  const { data, errors } = await Query(CREATE_STORY,variables)
 
   if (errors) {
     return {
@@ -57,6 +57,6 @@ exports.handler = async (event) => {
   }
   return {
     statusCode: 200,
-    body: JSON.stringify({ newHistory: data.createHistory }),
+    body: JSON.stringify({ newStory: data.createStory }),
   }
 }

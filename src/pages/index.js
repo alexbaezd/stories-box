@@ -2,15 +2,15 @@ import React from "react"
 import styled from "styled-components"
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd"
 
-import Form from "../components/formAddHistory";
-import Histories from "../components/histories"
+import Form from "../components/formAddStory";
+import Stories from "../components/stories"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import { useHistories } from "../hooks/useHistories";
+import { useStories } from "../hooks/useStories"
 
 
-const HistoriesGroup = styled.div`
+const StoriesGroup = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 0.5rem;
@@ -19,10 +19,12 @@ const HistoriesGroup = styled.div`
     border-top: 5px solid #e6496b;
   }
 `
+// TODO: update schema  => FAUNADB
+
 
 const IndexPage = () =>{
 
-  const [histories, setHistories , setStatus] = useHistories()
+  const [stories, setStories , setStatus] = useStories()
   const reloadData = () => setStatus("loading")
 
   const handleOnDragEnd = (result) =>{
@@ -31,42 +33,49 @@ const IndexPage = () =>{
     if(!destination) return 
     if(destination.index === source.index) return;
     
-    const copyState = Array.from(histories)
+      console.log(
+        "Current Priority",
+        destination,
+        stories[destination.index].title
+      )
+      console.log("source", source, stories[source.index].title)
+
+    const copyState = Array.from(stories)
     const [reorderedItem] = copyState.splice(source.index,1)
     copyState.splice(destination.index,0,reorderedItem)
-    setHistories(copyState)
+    setStories(copyState)
   }
 
   return (
     <Layout>
       <SEO title="Home" />
       <Form reloadData={reloadData} />
-      {histories ? (
+      {stories ? (
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="histories">
+          <Droppable droppableId="stories">
             {provided => (
-              <HistoriesGroup
+              <StoriesGroup
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {histories.map((history, index) => (
+                {stories.map((story, index) => (
                   <Draggable
-                    key={history._id}
-                    draggableId={history._id}
+                    key={story._id}
+                    draggableId={story._id}
                     index={index}
                   >
                     {provided => (
-                      <Histories
+                      <Stories
                         innerRef={provided.innerRef}
                         provided={provided}
-                        history={history}
+                        story={story}
                         reloadData={reloadData}
                       />
                     )}
                   </Draggable>
                 ))}
                 {provided.placeholder}
-              </HistoriesGroup>
+              </StoriesGroup>
             )}
           </Droppable>
         </DragDropContext>
