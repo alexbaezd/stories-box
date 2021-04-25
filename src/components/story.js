@@ -1,29 +1,36 @@
 import React from 'react'
 import styled from "styled-components"
 
-import { MyLoaderImage, MyLoaderText } from "./contendLoader"
+import { MyLoaderText } from "./contendLoader"
 
 const StoryContainer = styled.div`
   display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 1rem;
+  grid-template-rows: 40% 60%;
+  gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 2px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-  height: 240px;
+  height: auto;
   background: white;
   align-items:center;
   justify-content:center;
+  width:100%;
   @media (max-width: 640px) {
     height: auto;
     grid-template-columns: 100%;
   }
 `
-
+const StoryHeader = styled.div`
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:0.5rem;
+`
 const StoryTitle = styled.a`
   color: #7f8082;
-  font-size: 2vmin;
+  font-size: 1.8vmin;
+  line-height:1.4em;
   font-weight: 600;
   margin-bottom: 0rem;
   transition: color 0.3s;
@@ -80,19 +87,19 @@ const StoryDeleteButton = styled.button`
 `
 const StoryDescription = styled.p`
   color: #8d93ab;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 200;
-  margin-top: 0.1rem;
-  margin-bottom: 0.5rem;
-  padding-right:0.5rem;
+  margin-bottom: 0.2rem;
+  line-height:1.5em;
+  padding-bottom:0.4rem;
   @media (max-width: 640px) {
     margin-bottom: 0.8rem;
   }
 `
 const StoryImage = styled.img`
-  width: 420px;
-  height: 190px;
+  width: 100px;
   border-radius: 3px;
+  margin-bottom:0;
   @media (max-width: 640px) {
   display:none;
   }
@@ -113,7 +120,12 @@ const StoryReadGroup = styled.div`
     transform: translateY(-2px);
   }
 `
-
+const LoaderGroup = styled.div`
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+`
 
 export const Story = ({
   loadStory,
@@ -131,14 +143,13 @@ export const Story = ({
     ref={innerRef}
   >
     {loadStory ? (
-      <>
-        <MyLoaderImage />
+      <LoaderGroup>
         <MyLoaderText />
-      </>
+      </LoaderGroup>
     ) : (
       <>
-        <StoryImage src={story.image} alt={story.title} />
-        <div>
+        <StoryHeader>
+          <StoryImage src={story.image} alt={story.title} />
           <StoryTitle
             href={story.url}
             target="_blank"
@@ -146,6 +157,8 @@ export const Story = ({
           >
             {story.title}
           </StoryTitle>
+        </StoryHeader>
+        <div>
           <StoryNote>
             <span
               style={{ fontSize: "1.2rem" }}
@@ -158,7 +171,7 @@ export const Story = ({
           </StoryNote>
           <StoryDescription>{`${String(story.description).substring(
             0,
-            99
+            80
           )}...`}</StoryDescription>
           <StoryButtonGroup>
             <StoryButton href={story.url} target="_blank" rel="noreferrer">

@@ -3,7 +3,9 @@ import axios from "axios"
 
 export const useStories = () =>{
     const [status, setStatus] = useState("loading")
-    const [stories, setStories] = useState(null)
+    //FIXME: 2 VECES ? , REDUCELO A SOLO UN STATE
+    //const [stories, setStories] = useState(null)
+    const [columns, setColumns] = useState(null)
     
     useEffect(() => {
       let canceled = false
@@ -21,15 +23,30 @@ export const useStories = () =>{
           const sortData = result.data.stories.sort((a, b) =>
             a.read === b.read ? 0 : a.read ? 1 : -1
           )
-          setStories(sortData)
+          //setStories(sortData)
           setStatus("loaded")
+          setColumns({
+            "1-por-leer": {
+              name: "Por Leer",
+              items: sortData,
+            },
+            "2-leyendo": {
+              name: "Leyendo",
+              items: [],
+            },
+            "3-leido": {
+              name: "Hecho",
+              items: [],
+            },
+          })
+          
         }
       )
 
       return () => {
         canceled = true
       }
-    }, [status, stories])
+    }, [status,columns])
 
-    return [stories,setStories,setStatus]
+    return [setStatus,columns, setColumns]
 }

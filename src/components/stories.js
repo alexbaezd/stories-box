@@ -15,7 +15,7 @@ const Stories = ({ story, reloadData, provided ,innerRef}) => {
     return () => {
       clearTimeout(time)
     }
-  }, [])
+  }, [loadStory])
 
   const handleDelete = async () => {
     setDeleteStory(true)
@@ -61,4 +61,4 @@ const Stories = ({ story, reloadData, provided ,innerRef}) => {
   )
 }
 
-export default Stories
+export default React.memo(Stories)
