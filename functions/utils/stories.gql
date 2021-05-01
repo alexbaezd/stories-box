@@ -1,13 +1,17 @@
 type Story {
+  userID: String!
   note: String!
-  url: String!,
-  read: Boolean,
-  title:String!,
-  description:String!,
-  image:String!,
+  url: String!
+  read: Boolean
+  title: String!
+  description: String!
+  image: String!
   siteName: String
+  columnIndex: Int!
 }
 
 type Query {
   allStories: [Story!]!
+  isRead(read: Boolean!): [Story!]!
+  getStoriesByUserID(userID: String!): [Story!]!
 }

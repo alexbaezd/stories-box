@@ -1,7 +1,7 @@
-import React from 'react'
 import axios from "axios"
+import React from "react"
 import styled from "styled-components"
-import { useForm } from '../hooks/useForm'
+import { useForm } from "../hooks/useForm"
 
 const FormStory = styled.form`
   padding: 0.7rem 1rem;
@@ -10,22 +10,23 @@ const FormStory = styled.form`
   justify-content: center;
   background: white;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
-  margin-bottom:1rem;
-  @media (max-width: 640px){
-    flex-direction:column;
+  margin-bottom: 1rem;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
   }
 `
 const FormStoryLabel = styled.label`
   color: #7f8082;
   margin-right: 1.5rem;
   @media (max-width: 640px) {
-  width: 100%;
+    width: 100%;
   }
 `
 const FormStoryInput = styled.input`
   margin-left: 0.5rem;
   @media (max-width: 640px) {
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
     width: 80%;
   }
 `
@@ -37,49 +38,60 @@ const FormStorySubmit = styled.button`
   font-weight: 400;
   border-radius: 5px;
   @media (max-width: 640px) {
-    margin-top:0.5rem;
+    margin-top: 0.5rem;
   }
 `
 
-const Form = ({ reloadData }) => {
-
-  const [{ note, url }, handleInputChange, reset] = useForm({ note: "", url: "" })
+const Form = ({ reloadData, count }) => {
+  const [{ note, url }, handleInputChange, reset] = useForm({
+    note: "",
+    url: "",
+  })
 
   const handleSubmit = async event => {
-    event.preventDefault();
-  
+    event.preventDefault()
+
     if (note === "" && url === "") return
-  
-    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-story`, {note,url,});
-    reset();
-    reloadData();
+
+    await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-story`, {
+      note,
+      url,
+    })
+    reset()
+    reloadData()
   }
 
   return (
     <FormStory onSubmit={handleSubmit}>
-      <FormStoryLabel htmlFor="note">
-        Note
-        <FormStoryInput
-          autoComplete="off"
-          required
-          value={note}
-          name="note"
-          type="text"
-          onChange={handleInputChange}
-        />
-      </FormStoryLabel>
-      <FormStoryLabel htmlFor="url">
-        Link
-        <FormStoryInput
-          autoComplete="off"
-          required
-          value={url}
-          name="url"
-          type="url"
-          onChange={handleInputChange}
-        />
-      </FormStoryLabel>
-      <FormStorySubmit>Save</FormStorySubmit>
+      {count > 5 ? (
+        <p>Ya tienes mucho que leer,antes de agregar más.</p>
+      ) : (
+        <>
+          <FormStoryLabel htmlFor="note">
+            Note
+            <FormStoryInput
+              autoComplete="off"
+              required
+              value={note}
+              name="note"
+              type="text"
+              onChange={handleInputChange}
+            />
+          </FormStoryLabel>
+          <FormStoryLabel htmlFor="url">
+            Link
+            <FormStoryInput
+              autoComplete="off"
+              required
+              value={url}
+              name="url"
+              type="url"
+              onChange={handleInputChange}
+            />
+          </FormStoryLabel>
+          <FormStorySubmit>Save</FormStorySubmit>
+        </>
+      )}
     </FormStory>
   )
 }

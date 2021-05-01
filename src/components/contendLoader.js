@@ -1,36 +1,56 @@
 import React from "react"
 import ContentLoader from "react-content-loader"
+import styled from "styled-components"
 
-export const MyLoaderText = () => (
+const GridLoader = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 70vh;
+`
+export const BoardLoader = () => (
+  <GridLoader>
+    <MyLoaderText />
+    <MyLoaderText />
+    <MyLoaderText />
+  </GridLoader>
+)
+
+const MyLoaderText = () => (
   <ContentLoader
-    speed={2}
     width={350}
-    height={190}
-    viewBox="0 0 400 190"
-    backgroundColor="#f3f3f3"
-    foregroundColor="#ecebeb"
+    height={800}
+    viewBox="0 0 350 600"
+    backgroundColor="#dbdbdb"
+    foregroundColor="#6c757d"
+    speed={1.5}
   >
-    <rect x="4" y="22" rx="0" ry="0" width="137" height="66" />
-    <rect x="171" y="36" rx="0" ry="0" width="162" height="7" />
-    <rect x="170" y="53" rx="0" ry="0" width="158" height="6" />
-    <rect x="7" y="97" rx="0" ry="0" width="153" height="6" />
-    <rect x="5" y="117" rx="0" ry="0" width="324" height="8" />
-    <rect x="7" y="137" rx="0" ry="0" width="324" height="8" />
+    <rect x="4" y="8" rx="3" ry="3" width="8" height="570" />
+    <rect x="5" y="573" rx="3" ry="3" width="331" height="7" />
+    <rect x="329" y="9" rx="3" ry="3" width="8" height="570" />
+    <rect x="102" y="69" rx="3" ry="3" width="102" height="7" />
+    <rect x="92" y="47" rx="3" ry="3" width="178" height="6" />
+    <circle cx="48" cy="63" r="18" />
+    <rect x="95" y="95" rx="3" ry="3" width="178" height="6" />
+    <rect x="105" y="169" rx="3" ry="3" width="102" height="7" />
+    <rect x="95" y="147" rx="3" ry="3" width="178" height="6" />
+    <circle cx="51" cy="163" r="18" />
+    <rect x="98" y="195" rx="3" ry="3" width="178" height="6" />
+    <rect x="107" y="265" rx="3" ry="3" width="102" height="7" />
+    <rect x="97" y="243" rx="3" ry="3" width="178" height="6" />
+    <circle cx="53" cy="259" r="18" />
+    <rect x="100" y="291" rx="3" ry="3" width="178" height="6" />
+    <rect x="108" y="365" rx="3" ry="3" width="102" height="7" />
+    <rect x="98" y="343" rx="3" ry="3" width="178" height="6" />
+    <circle cx="54" cy="359" r="18" />
+    <rect x="101" y="391" rx="3" ry="3" width="178" height="6" />
+    <rect x="110" y="458" rx="3" ry="3" width="102" height="7" />
+    <rect x="100" y="436" rx="3" ry="3" width="178" height="6" />
+    <circle cx="56" cy="452" r="18" />
+    <rect x="103" y="484" rx="3" ry="3" width="178" height="6" />
+    <rect x="114" y="507" rx="3" ry="3" width="102" height="7" />
+    <rect x="103" y="534" rx="3" ry="3" width="178" height="6" />
+    <rect x="5" y="8" rx="3" ry="3" width="331" height="7" />
   </ContentLoader>
 )
-
-
-export const MyLoaderImage = () => (
-  <ContentLoader
-    speed={2}
-    width="100%"
-    height={190}
-    viewBox="0 0 476 220"
-    backgroundColor="#f3f3f3"
-    foregroundColor="#ecebeb"
-  >
-    <rect x="83" y="83" rx="0" ry="0" width="26" height="0" />
-    <rect x="2" y="5" rx="0" ry="0" width="470" height="218" />
-  </ContentLoader>
-)
-
