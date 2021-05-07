@@ -19,13 +19,7 @@ const GET_STORIES_BY_USER_ID = `
 `
 
 exports.handler = async event => {
-  console.log("*******************EVENT*********************")
-  console.log(event)
-  console.log("*******************EVENT*********************")
   const userID = event.queryStringParameters.userID
-  console.log("*******************USERID*********************")
-  console.log("USERID =>", event.queryStringParameters.userID)
-  console.log("*******************USERID*********************")
 
   const { data, errors } = await Query(GET_STORIES_BY_USER_ID, {
     userID,

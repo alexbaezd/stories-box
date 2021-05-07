@@ -1,3 +1,7 @@
+export const COLUMN_TO_READ = 0
+export const COLUMN_READING = 1
+export const COLUMN_READ = 2
+
 // fake data generator
 export const getItems = (count, offset = 0) =>
   Array.from({ length: count }, (v, k) => k).map(k => ({
@@ -62,7 +66,7 @@ export const getTitle = key => {
     case 1:
       return "Leyendo"
     case 2:
-      return "Leido"
+      return "Leído"
 
     default:
       return null

@@ -10,8 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: 'Fira Mono', monospace;
-  background:#f6f7fb;
+  font-family: "Fira Mono", monospace;
+  background: #f6f7fb;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -83,7 +83,7 @@ h1 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: 'Fira Mono', monospace;
+  font-family: "Fira Mono", monospace;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 2.25rem;
@@ -261,7 +261,7 @@ h2 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: 'Fira Mono', monospace;
+  font-family: "Fira Mono", monospace;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 1.62671rem;
@@ -277,7 +277,7 @@ h3 {
   padding-top: 0;
   margin-bottom: 1.45rem;
   color: inherit;
-  font-family: 'Fira Mono', monospace;
+  font-family: "Fira Mono", monospace;
   font-weight: bold;
   text-rendering: optimizeLegibility;
   font-size: 1.38316rem;
@@ -352,7 +352,7 @@ ul {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
+  margin-bottom: 0.05rem;
   list-style-position: outside;
   list-style-image: none;
 }
@@ -396,7 +396,6 @@ p {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
-  margin-bottom: 1.45rem;
 }
 pre {
   margin-left: 0;
@@ -488,7 +487,7 @@ th {
   font-weight: bold;
 }
 li {
-  margin-bottom: calc(1.45rem / 2);
+  margin-bottom: calc(0.05rem / 2);
 }
 ol li {
   padding-left: 0;
@@ -595,26 +594,37 @@ pre tt:after {
   }
 }
 
+.activeRead {
+  transition: opacity 0.5s cubic-bezier(0.2, 0.82, 0.2, 1);
+  opacity: 0.4;
+}
 
-.activeRead{
-  transition:  opacity 0.5s cubic-bezier(0.2, 0.82, 0.2, 1);
-    opacity: 0.4;
-  }
-
-.createStory{
+.createStory {
   animation: create 0.3s linear;
   animation-iteration-count: 1;
 }
-.deleteStory{
+.deleteStory {
   animation: delete 0.3s linear;
   animation-iteration-count: 1;
   opacity: 0;
 }
-@keyframes delete{
-    0% { opacity: 1; transform: scale(1);}
-    100%{opacity: 0; transform: scale(0); }    
+@keyframes delete {
+  0% {
+    opacity: 1;
+    transform: scale(1);
   }
-@keyframes create{
-    0% {opacity: 0; transform: scale(0); }
-    100%{ opacity: 1; transform: scale(1);}    
+  100% {
+    opacity: 0;
+    transform: scale(0);
   }
+}
+@keyframes create {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,61 +1,41 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
+import { COLUMN_READ, COLUMN_READING, COLUMN_TO_READ } from "../utils/dnd"
+import { useFetch } from "./useFetch"
 
-const getRequestData = (canceled, userID) => {
-  console.log("****userID*****", userID)
-  let data = axios
-    .get(`${process.env.GATSBY_URL_FUNCTIONS}/get-stories-by-user`, {
-      params: { userID },
-    })
-    .then(result => {
-      if (canceled === true) return
+const filterColumnsByStatusRead = result => {
+  const filteredColumnToRead = result.filter(
+    item => item.columnIndex === COLUMN_TO_READ
+  )
+  const filteredColumnReading = result.filter(
+    item => item.columnIndex === COLUMN_READING
+  )
+  const filteredColumnRead = result.filter(
+    item => item.columnIndex === COLUMN_READ
+  )
 
-      if (result.status !== 200) {
-        console.error("Error Loading", "\n", result)
-        return
-      }
-
-      const sortData = result.data.stories.sort((a, b) =>
-        a.read === b.read ? 0 : a.read ? 1 : -1
-      )
-
-      return sortData
-    })
-
-  return data
+  return [filteredColumnToRead, filteredColumnReading, filteredColumnRead]
 }
 
 export const useStories = userID => {
-  const [status, setStatus] = useState("loading")
+  const [{ status, data }, reload, setReload] = useFetch(userID)
   const [columns, setColumns] = useState(null)
 
   useEffect(() => {
     let canceled = false
 
-    if (status !== "loading") return
+    if (status === "fetched" && data.length !== 0) {
+      setColumns(filterColumnsByStatusRead(data))
+    }
+    if (status === "fetched" && data.length === 0) {
+      setColumns([[], [], []])
+    }
 
-    getRequestData(canceled, userID).then(result => {
-      console.log("==================RESULT===================")
-      console.log(result)
-
-      const filteredColumn0 = result.filter(item => item.columnIndex === 0)
-      const filteredColumn1 = result.filter(item => item.columnIndex === 1)
-      const filteredColumn2 = result.filter(item => item.columnIndex === 2)
-      console.log("==================FILTER===================")
-      console.log("fill0", filteredColumn0)
-      console.log("fill1", filteredColumn1)
-      console.log("fill2", filteredColumn2)
-      console.log("==================FILTER===================")
-
-      setColumns([filteredColumn0, filteredColumn1, filteredColumn2])
-      setStatus("loaded")
-      console.log("Call FaunaDB")
-    })
+    if (canceled === true) return
 
     return () => {
       canceled = true
     }
-  }, [status, columns, userID])
+  }, [status, data])
 
-  return [status, setStatus, columns, setColumns]
+  return [reload, setReload, columns, setColumns]
 }

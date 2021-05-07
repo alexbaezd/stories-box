@@ -27,14 +27,13 @@ const getMeta = async url => {
   let resp = await ogs(options)
   return resp.result
 }
-// TODO: add columnIndex
-// TODO: add userID
+
 exports.handler = async event => {
-  const { note, url } = JSON.parse(event.body)
+  const { note, url, userID } = JSON.parse(event.body)
   const openGraphData = await getMeta(url)
 
   const variables = {
-    userID: "alex",
+    userID,
     note,
     url,
     title: openGraphData.ogTitle,

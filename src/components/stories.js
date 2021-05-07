@@ -1,6 +1,6 @@
 import axios from "axios"
 import React, { useState } from "react"
-import { Story } from "./story"
+import { Story } from "./Story"
 
 const Stories = ({ story, reloadData }) => {
   const [deleteStory, setDeleteStory] = useState(false)
@@ -14,19 +14,8 @@ const Stories = ({ story, reloadData }) => {
       .then(reloadData)
   }
 
-  // FIXME: update to new Schema userID and columnIndex
   const handleRead = async () => {
-    const {
-      _id,
-      userID,
-      title,
-      url,
-      read,
-      image,
-      description,
-      note,
-      columnIndex,
-    } = story
+    const { _id, userID, title, url, read, image, description, note } = story
     await axios
       .post(`${process.env.GATSBY_URL_FUNCTIONS}/isread`, {
         id: _id,
@@ -37,7 +26,7 @@ const Stories = ({ story, reloadData }) => {
         image,
         description,
         note,
-        columnIndex,
+        columnIndex: read === true ? 0 : 2,
       })
       .then(reloadData)
   }

@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "1-guarda-links",
+      "title": "Links",
+      "description": "Imagina no olvidar esa pestaña en tu navegador, solo guarda enlaces de artículos, post de tu interés y escribé una pequeña nota 📝",
+      "image": "read.svg"
+    },
+    {
+      "id": "2-kanban",
+      "title": "Drag & Drop",
+      "description": "Organizate para leer tus post, solo arrastra y suelta, así de  facil.",
+      "image": "board.svg"
+    }
+  ]
+}
