@@ -2,14 +2,19 @@ import React from "react"
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd"
 import { getItemStyle, getListStyle, getTitle } from "../../utils/dnd"
 import Stories from "../stories"
-import { BoardColumn, BoardColumnH2, BoardContainer, Column2 } from "./styled"
+import {
+  BoardColumn,
+  BoardColumnH2,
+  BoardColumnWrapper,
+  BoardContainer,
+} from "./styled"
 
 const Board = ({ onDragEnd, columns, reloadData }) => (
   <BoardContainer className="board-container">
     <DragDropContext onDragEnd={onDragEnd}>
       {columns.map((el, ind) => {
         return (
-          <Column2 key={ind}>
+          <BoardColumnWrapper key={ind}>
             <BoardColumnH2>{getTitle(ind)}</BoardColumnH2>
             <Droppable droppableId={`${ind}`}>
               {(provided, snapshot) => (
@@ -36,15 +41,7 @@ const Board = ({ onDragEnd, columns, reloadData }) => (
                               provided.draggableProps.style
                             )}
                           >
-                            <div
-                              style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-around",
-                              }}
-                            >
-                              <Stories story={item} reloadData={reloadData} />
-                            </div>
+                            <Stories story={item} reloadData={reloadData} />
                           </div>
                         )}
                       </Draggable>
@@ -54,7 +51,7 @@ const Board = ({ onDragEnd, columns, reloadData }) => (
                 </BoardColumn>
               )}
             </Droppable>
-          </Column2>
+          </BoardColumnWrapper>
         )
       })}
     </DragDropContext>

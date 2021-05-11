@@ -13,7 +13,7 @@ export const BoardContainer = styled.div`
   scroll-snap-type: x mandatory;
   @media (max-width: 1400px) {
     grid-auto-columns: 35%;
-    gap: 2rem;
+    gap: 2.5rem;
   }
   @media (max-width: 1112px) {
     grid-auto-columns: 45%;
@@ -33,22 +33,28 @@ export const BoardContainer = styled.div`
   }
   @media (max-width: 414px) {
     grid-auto-columns: 92%;
-    gap: 4rem;
+    gap: 4.6rem;
+  }
+  @media (max-width: 375px) {
+    grid-auto-columns: 100%;
+    gap: 5.8rem;
   }
   @media (max-width: 320px) {
     grid-auto-columns: 100%;
-    gap: 7rem;
+    gap: 8.9rem;
   }
 `
-export const Column2 = styled.div`
+export const BoardColumnWrapper = styled.div`
+  width: clamp(277px, 60vw, 420px);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   margin-right: 1.5rem;
 `
 export const BoardColumn = styled.div`
-  width: clamp(250px, 60vw, 420px);
-  height: 80vh;
-  min-height: 70vh;
+  /* width: clamp(277px, 60vw, 420px);*/
+  /**TEST 100vh => auto + padding bottom  */
+  height: auto;
+  min-height: 80vh;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
 
   border-top: ${props =>

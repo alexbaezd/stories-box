@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
-export const StoryContainer = styled.div`
+export const StoryContainer = styled.article`
   display: grid;
   grid-template-rows: 40% 60%;
-  gap: 0.5rem;
-  margin-bottom: 0.2rem;
+  gap: 0.2rem;
+  margin-bottom: 0.5rem;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
@@ -27,7 +27,7 @@ export const StoryHeader = styled.div`
 `
 export const StoryTitle = styled.a`
   color: #7f8082;
-  font-size: 1.8vmin;
+  font-size: 1.6vmin;
   line-height: 1.4em;
   font-weight: 600;
   margin-bottom: 0rem;
@@ -35,6 +35,9 @@ export const StoryTitle = styled.a`
   display: block;
   &:hover {
     color: #e6496b;
+  }
+  @media (max-width: 414px) {
+    font-size: 3.7vmin;
   }
   @media (max-width: 640px) {
     font-size: 4vmin;
@@ -45,6 +48,7 @@ export const StoryNote = styled.small`
   margin: 0;
   font-style: italic;
   margin-bottom: 1.5rem;
+  font-size: 0.75rem;
 `
 export const StoryButtonGroup = styled.div`
   display: flex;
@@ -53,6 +57,7 @@ export const StoryButtonGroup = styled.div`
   gap: 0.5rem;
   @media (max-width: 640px) {
     justify-content: space-around;
+    padding-bottom: 1rem;
   }
 `
 export const StoryButton = styled.a`
@@ -88,6 +93,12 @@ export const StoryDescription = styled.p`
   margin-bottom: 0.2rem;
   line-height: 1.5em;
   padding-bottom: 0.4rem;
+  @media (max-width: 414px) {
+    margin-bottom: 0.8rem;
+    font-size: 0.6rem;
+    height: 35px;
+    overflow: hidden;
+  }
   @media (max-width: 640px) {
     margin-bottom: 0.8rem;
   }
