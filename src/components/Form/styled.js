@@ -107,10 +107,20 @@ export const FormActions = styled.div`
 `
 
 export const AddStoryButton = styled.button`
+  /**
+  Safari
+  width: 0;
+height: 0;
+padding: 1.6rem;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 0.5rem;
+ */
   background-color: #e6496b;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: block;
   margin: 0 auto;
   cursor: pointer;
@@ -118,6 +128,7 @@ export const AddStoryButton = styled.button`
   font-weight: bold;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 1rem;
+  padding: 0;
   font-size: 2rem;
   border: none;
   transition: all 0.3s;
