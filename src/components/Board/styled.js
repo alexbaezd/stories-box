@@ -15,8 +15,11 @@ export const BoardContainer = styled.div`
     grid-auto-columns: 35%;
     gap: 2rem;
   }
-  @media (max-width: 1100px) {
+  @media (max-width: 1112px) {
     grid-auto-columns: 45%;
+  }
+  @media (max-width: 1024px) {
+    grid-auto-columns: 50%;
   }
   @media (max-width: 960px) {
     grid-auto-columns: 55%;
@@ -29,8 +32,12 @@ export const BoardContainer = styled.div`
     grid-auto-columns: 89%;
   }
   @media (max-width: 414px) {
-    grid-auto-columns: 100%;
+    grid-auto-columns: 92%;
     gap: 4rem;
+  }
+  @media (max-width: 320px) {
+    grid-auto-columns: 100%;
+    gap: 7rem;
   }
 `
 export const Column2 = styled.div`
@@ -40,7 +47,8 @@ export const Column2 = styled.div`
 `
 export const BoardColumn = styled.div`
   width: clamp(250px, 60vw, 420px);
-  min-height: 80vh;
+  height: 80vh;
+  min-height: 70vh;
   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
 
   border-top: ${props =>

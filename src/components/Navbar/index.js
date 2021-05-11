@@ -16,6 +16,7 @@ import {
 
 const NavBar = ({ title }) => {
   const [open, setOpen] = useState(false)
+
   const {
     isAuthenticated,
     loginWithRedirect,
@@ -55,7 +56,7 @@ const NavBar = ({ title }) => {
               </IconMenu>
             </IconButton>
             {open && (
-              <DropdownMenu>
+              <DropdownMenu onMouseLeave={() => setOpen(false)}>
                 <DropdownItemLink to="/app">Stories</DropdownItemLink>
                 <DropdownItemLink to="/profile">My Profile</DropdownItemLink>
                 <DropdownItem

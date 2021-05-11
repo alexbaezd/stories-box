@@ -11,6 +11,25 @@ export const FormStory = styled.form`
   margin: 0 auto;
   align-items: end;
   margin-bottom: 2rem;
+  /* animation: ${props => (props.openForm ? "close 0.2s" : "open 0.2s")}; */
+  @keyframes open {
+    from {
+      transform: translateY(-50%);
+    }
+
+    to {
+      transform: translateY(0%);
+    }
+  }
+  @keyframes close {
+    from {
+      transform: translateY(0%);
+    }
+
+    to {
+      transform: translateY(-50%);
+    }
+  }
 
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
@@ -80,4 +99,40 @@ export const ErrorMessage = styled.p`
   @media (max-width: 640px) {
     margin-top: -0.9rem;
   }
+`
+
+export const FormActions = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const AddStoryButton = styled.button`
+  background-color: #e6496b;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  border: none;
+  transition: all 0.3s;
+  :hover {
+    background: #2a9d8f;
+    transform: translateY(-3px);
+  }
+`
+
+export const CancelStoryButton = styled(AddStoryButton)`
+  width: 25px;
+  height: 25px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  margin: 0;
+  align-self: flex-end;
+  margin-bottom: 0.8rem;
 `

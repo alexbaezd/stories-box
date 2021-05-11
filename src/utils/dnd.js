@@ -57,6 +57,7 @@ export const getItemStyle = (isDragging, draggableStyle) => ({
 export const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? "rgba(255, 243, 176, 0.7)" : "white",
   padding: grid,
+  overflowY: "scroll",
 })
 
 export const getTitle = key => {

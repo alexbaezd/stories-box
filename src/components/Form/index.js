@@ -1,15 +1,16 @@
 import axios from "axios"
-import React from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import {
   ErrorMessage,
+  FormActions,
   FormStory,
   FormStoryInput,
   FormStoryLabel,
   FormStorySubmit,
 } from "./styled"
 
-const Form = ({ reloadData, count, userSub }) => {
+const Form = ({ reloadData, count, userSub, toggleIsOn }) => {
   const {
     register,
     handleSubmit,
@@ -17,7 +18,10 @@ const Form = ({ reloadData, count, userSub }) => {
     formState: { errors },
   } = useForm()
 
+  const [onSubmitEvent, setOnSubmitEvent] = useState(false)
+
   const onSubmit = async data => {
+    setOnSubmitEvent(true)
     const { note, url } = data
 
     await axios.post(`${process.env.GATSBY_URL_FUNCTIONS}/create-story`, {
@@ -28,6 +32,8 @@ const Form = ({ reloadData, count, userSub }) => {
 
     reset({ note: "", url: "" })
     reloadData()
+    toggleIsOn()
+    setOnSubmitEvent(false)
   }
 
   return (
@@ -49,12 +55,10 @@ const Form = ({ reloadData, count, userSub }) => {
               })}
             />
             {errors?.note?.type === "required" && (
-              <ErrorMessage>This field is required</ErrorMessage>
+              <ErrorMessage>Note is required</ErrorMessage>
             )}
             {errors?.note?.type === "maxLength" && (
-              <ErrorMessage>
-                First name cannot exceed 20 characters
-              </ErrorMessage>
+              <ErrorMessage>Note cannot exceed 20 characters</ErrorMessage>
             )}
           </FormStoryLabel>
           <FormStoryLabel htmlFor="url">
@@ -67,10 +71,16 @@ const Form = ({ reloadData, count, userSub }) => {
               {...register("url", { required: true })}
             />
             {errors?.url?.type === "required" && (
-              <ErrorMessage>This field is required</ErrorMessage>
+              <ErrorMessage>This url is required</ErrorMessage>
             )}
           </FormStoryLabel>
-          <FormStorySubmit>Save</FormStorySubmit>
+          <FormActions>
+            {onSubmitEvent ? (
+              "Loading..."
+            ) : (
+              <FormStorySubmit>Save</FormStorySubmit>
+            )}
+          </FormActions>
         </>
       )}
     </FormStory>

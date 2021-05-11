@@ -11,6 +11,10 @@ export const UserInfo = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  @media (max-width: 414px) {
+    width: 280px;
+    flex-direction: column;
+  }
 `
 export const UserPicture = styled.img`
   border-radius: 50%;
