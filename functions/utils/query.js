@@ -1,9 +1,8 @@
 //require("dotenv").config();
 
-const axios = require("axios");
+const axios = require("axios")
 
 module.exports = async (query, variables) => {
-  //TODO: create function
   const result = await axios({
     url: "https://graphql.fauna.com/graphql",
     method: "POST",
@@ -15,5 +14,5 @@ module.exports = async (query, variables) => {
       variables,
     },
   })
-  return result.data;
+  return result.data
 }

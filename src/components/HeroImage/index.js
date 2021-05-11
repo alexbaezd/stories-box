@@ -1,11 +1,34 @@
-import React from "react"
-import { AuthButton, Background, H1 } from "./styled"
+import { StaticImage } from "gatsby-plugin-image"
+import * as React from "react"
+import { AuthButton, H1, HeroCTO, HeroWrapper } from "./styled"
 
-const HeroImage = ({ loginWithRedirect }) => (
-  <Background role="img" aria-label="Image Description">
-    <H1>Ready To Save Your Links?</H1>
-    <AuthButton onClick={loginWithRedirect}>Get Started</AuthButton>
-  </Background>
-)
+const Hero = ({ loginWithRedirect }) => {
+  return (
+    <div
+      style={{
+        display: "grid",
+      }}
+    >
+      <StaticImage
+        style={{
+          gridArea: "1/1",
+          height: "100vh",
+        }}
+        layout="fullWidth"
+        aspectRatio={16 / 9}
+        placeholder="blurred"
+        alt="Hero Image"
+        src={"../../images/bg.jpg"}
+        formats={["auto", "webp", "avif"]}
+      />
+      <HeroWrapper>
+        <HeroCTO>
+          <H1>Ready To Save Your Links?</H1>
+          <AuthButton onClick={loginWithRedirect}>Get Started</AuthButton>
+        </HeroCTO>
+      </HeroWrapper>
+    </div>
+  )
+}
 
-export default HeroImage
+export default Hero

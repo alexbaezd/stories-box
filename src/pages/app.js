@@ -3,10 +3,12 @@ import axios from "axios"
 import React from "react"
 import Board from "../components/Board"
 import Form from "../components/Form"
+import { AddStoryButton } from "../components/Form/styled"
 import Layout from "../components/layout"
 import { BoardLoader } from "../components/Utils/contendLoader"
 import Seo from "../components/Utils/seo"
 import { useStories } from "../hooks/useStories"
+import { useToggle } from "../hooks/useToggle"
 import { move, reorder } from "../utils/dnd"
 
 const App = () => {
@@ -14,6 +16,7 @@ const App = () => {
   const userID = user.sub
 
   const [reload, setReload, columns, setColumns] = useStories(userID)
+  const [isOn, toggleIsOn] = useToggle()
 
   const reloadData = () => setReload("loading")
 
@@ -94,11 +97,20 @@ const App = () => {
       <Seo title="Home" />
       {columns || reload === "loaded" ? (
         <>
-          <Form
-            reloadData={reloadData}
-            count={columns[0].length}
-            userSub={userID}
-          />
+          <>
+            <AddStoryButton onClick={toggleIsOn}>
+              {isOn ? "-" : "+"}
+            </AddStoryButton>
+            {isOn && (
+              <Form
+                reloadData={reloadData}
+                count={columns[0].length}
+                userSub={userID}
+                toggleIsOn={toggleIsOn}
+                isOn={isOn}
+              />
+            )}
+          </>
 
           <Board
             onDragEnd={onDragEnd}

@@ -16,7 +16,10 @@ export const Wrapper = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   flex-wrap: wrap-reverse;
-  height: 45vh;
+  height: 55vh;
+  @media (max-width: 768px) {
+    height: auto;
+  }
 `
 export const Information = styled.article`
   max-width: 450px;
@@ -46,9 +49,9 @@ export const Picture = styled.img`
   margin-bottom: 1rem;
 
   @media (max-width: 768px) {
-    width: 300px;
+    width: 260px;
   }
-  @media (max-width: 372px) {
-    width: 250px;
+  @media (max-width: 375px) {
+    width: 70%;
   }
 `

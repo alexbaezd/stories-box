@@ -25,9 +25,27 @@ export const Background = styled.section`
   top: 10px; */
 `
 
+export const HeroWrapper = styled.div`
+  grid-area: 1/1;
+  position: relative;
+  place-items: center;
+  display: grid;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+`
+export const HeroCTO = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 export const H1 = styled.h1`
   font-style: normal;
   font-weight: bold;
+  text-align: center;
   color: #eee;
   font-size: 9vmin;
   letter-spacing: 0.03em;

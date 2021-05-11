@@ -6,13 +6,14 @@ export const StoryContainer = styled.div`
   gap: 0.5rem;
   margin-bottom: 0.2rem;
   padding: 1rem;
-  border-radius: 2px;
+  border-radius: 5px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
   height: auto;
   background: white;
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 240px;
   @media (max-width: 640px) {
     height: auto;
     grid-template-columns: 100%;
@@ -99,6 +100,7 @@ export const StoryImage = styled.img`
     display: none;
   }
 `
+
 export const StoryReadGroup = styled.div`
   border: 1px solid #66bfbf;
   padding: 0.3rem;

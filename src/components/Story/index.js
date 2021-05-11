@@ -12,12 +12,18 @@ import {
   StoryTitle,
 } from "./styled"
 
+const FormatTitle = title => {
+  if (title.length < 60) return title
+
+  return `${title.substring(0, 45)}...`
+}
+
 export const Story = ({ StoryClass, story, handleDelete, handleRead }) => (
   <StoryContainer className={StoryClass}>
     <StoryHeader>
       <StoryImage src={story.image} alt={story.title} />
       <StoryTitle href={story.url} target="_blank" rel="noopener noreferrer">
-        {story.title}
+        {FormatTitle(String(story.title))}
       </StoryTitle>
     </StoryHeader>
     <div>

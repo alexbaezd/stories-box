@@ -25,6 +25,10 @@ export const AuthPicture = styled.img`
   width: calc(60px * 0.7);
   border-radius: 50%;
   margin-bottom: 0;
+  transition: all 0.3s;
+  :hover {
+    border: 2px solid #2a9d8f;
+  }
 `
 export const IconButton = styled.button`
   width: 120px;

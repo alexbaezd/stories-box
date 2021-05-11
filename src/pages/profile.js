@@ -18,7 +18,7 @@ const Profile = () => {
   return (
     isAuthenticated && (
       <Layout>
-        <Seo title="Page two" />
+        <Seo title="Profile" />
         <UserInfo>
           <UserPicture
             className="profile-image"
